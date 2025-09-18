@@ -1,8 +1,10 @@
 <div class="container">
   <app-logo></app-logo>
-  <app-navbar></app-navbar>
-  <div class="content shadow">
-    <ng-content></ng-content>
+  <ng-content select="[actions]"></ng-content>
+  <div class="main">
+    <div class="content shadow">
+      <ng-content></ng-content>
+    </div>
   </div>
   <app-footer></app-footer>
 </div>

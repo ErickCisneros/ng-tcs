@@ -1,7 +1,19 @@
+@use '../../../../styles/mixins' as m;
+
 .title {
   font-size: 1.125rem;
   font-weight: 300;
   line-height: 1.75rem;
   text-align: center;
-  margin: 14px 0px;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 0;
+  cursor: pointer;
+
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    @include m.text(primary);
+  }
 }

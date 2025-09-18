@@ -1,0 +1,10 @@
+@use './mixins.scss' as m;
+
+select {
+  @include m.bg(surface);
+  @include m.border(primary);
+  padding: 6px 10px 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}

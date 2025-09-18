@@ -13,6 +13,10 @@
   border: 1px solid map.get(c.$colors, $name);
 }
 
+@mixin border-bottom($name) {
+  border-bottom: 1px solid map.get(c.$colors, $name);
+}
+
 @mixin shadow() {
   box-shadow: 0 2px 3px map.get(c.$colors, shadow);
 }

@@ -1,0 +1,19 @@
+@use './mixins.scss' as m;
+
+table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  @include m.border-bottom(surface);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+thead {
+  @include m.bg(surface);
+  font-weight: bold;
+}
