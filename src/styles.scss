@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/mixins.scss' as m;
+@use 'styles/buttons.scss';
+@use 'styles/colors.scss';
+@use 'styles/inputs.scss';
+@use 'styles/utils.scss';
+
+html,
+body {
+  @include m.bg(primary-container);
+  height: 100%;
+  max-width: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

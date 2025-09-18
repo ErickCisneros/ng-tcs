@@ -1,0 +1,9 @@
+:host {
+  width: 100%;
+}
+
+@media (min-width: 416px) {
+  :host {
+    max-width: fit-content;
+  }
+}

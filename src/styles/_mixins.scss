@@ -1,0 +1,18 @@
+@use 'sass:map';
+@use './colors' as c;
+
+@mixin text($name) {
+  color: map.get(c.$colors, $name);
+}
+
+@mixin bg($name) {
+  background-color: map.get(c.$colors, $name);
+}
+
+@mixin border($name) {
+  border: 1px solid map.get(c.$colors, $name);
+}
+
+@mixin shadow() {
+  box-shadow: 0 2px 3px map.get(c.$colors, shadow);
+}

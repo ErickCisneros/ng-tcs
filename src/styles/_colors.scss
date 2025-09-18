@@ -1,0 +1,39 @@
+$colors: (
+  primary: #94a7c5,
+  primary-container: #f8fafd,
+  primary-variant: #00639b,
+  surface: #e9eef6,
+  surface-variant: white,
+  on-surface: #ffffff26,
+  shadow: #00000033,
+);
+
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color !important;
+  }
+
+  .border-#{$name} {
+    border: 1px solid $color !important;
+  }
+
+  .border-top-#{$name} {
+    border-top: 1px solid $color !important;
+  }
+
+  .border-bottom-#{$name} {
+    border-bottom: 1px solid $color !important;
+  }
+
+  .border-left-#{$name} {
+    border-left: 1px solid $color !important;
+  }
+
+  .border-right-#{$name} {
+    border-right: 1px solid $color !important;
+  }
+
+  .text-#{$name} {
+    color: $color !important;
+  }
+}

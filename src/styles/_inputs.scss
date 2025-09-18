@@ -1,0 +1,27 @@
+@use './mixins.scss' as m;
+
+.input-container {
+  position: relative;
+  width: 100%;
+
+  input {
+    @include m.bg(surface);
+    @include m.border(primary);
+    width: calc(100% - 34px);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+
+    &:focus {
+      @include m.bg(surface-variant);
+      @include m.border(primary-variant);
+      @include m.shadow();
+    }
+
+    &:hover {
+      @include m.shadow();
+    }
+  }
+}
