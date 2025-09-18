@@ -53,7 +53,6 @@ export class Table<T> {
   nextPage() {
     if (this.canNext()) {
       this.pageIndex.update((i) => i + 1);
-      console.log('nextPage →', this.pageIndex());
       this.pageChange.emit({ pageSize: this.pageSize(), pageIndex: this.pageIndex() });
     }
   }
@@ -61,7 +60,6 @@ export class Table<T> {
   prevPage() {
     if (this.canPrev()) {
       this.pageIndex.update((i) => i - 1);
-      console.log('prevPage →', this.pageIndex());
       this.pageChange.emit({ pageSize: this.pageSize(), pageIndex: this.pageIndex() });
     }
   }

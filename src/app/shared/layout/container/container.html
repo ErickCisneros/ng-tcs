@@ -1,6 +1,8 @@
 <div class="container">
   <app-logo></app-logo>
-  <ng-content select="[actions]"></ng-content>
+  <div class="actions">
+    <ng-content select="[actions]"></ng-content>
+  </div>
   <div class="main">
     <div class="content shadow">
       <ng-content></ng-content>
