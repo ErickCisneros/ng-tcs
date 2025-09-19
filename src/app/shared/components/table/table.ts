@@ -8,15 +8,17 @@ import {
   signal,
 } from '@angular/core';
 import { TableColumn } from '../../types/table-column';
+import { TableSkeleton } from '../table-skeleton/table-skeleton';
 
 @Component({
   selector: 'app-table',
-  imports: [],
+  imports: [TableSkeleton],
   templateUrl: './table.html',
   styleUrl: './table.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Table<T> {
+  loading = input.required<boolean>();
   data = input.required<T[]>();
   columns = input.required<TableColumn<T>[]>();
   pageSizeOptions = input<number[]>([5, 10, 20]);

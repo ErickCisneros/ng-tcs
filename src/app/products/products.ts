@@ -25,6 +25,7 @@ export default class Products {
   private snackbar = inject(Snackbar);
   private allProducts = signal<ProductModel[]>([]);
 
+  loadingProducts = signal(true);
   products = signal<ProductModel[]>([]);
   columns: TableColumn<ProductModel>[] = [
     { key: 'logo', label: 'Logo', type: 'image' },
@@ -82,8 +83,12 @@ export default class Products {
       next: (data) => {
         this.allProducts.set(data);
         this.products.set(data);
+        this.loadingProducts.set(false);
       },
-      error: () => this.snackbar.show(ProductMessages.LOAD_ERROR),
+      error: () => {
+        this.snackbar.show(ProductMessages.LOAD_ERROR);
+        this.loadingProducts.set(false);
+      },
     });
   }
 }

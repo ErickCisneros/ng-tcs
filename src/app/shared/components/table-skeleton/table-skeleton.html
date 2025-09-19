@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      @for (col of columns(); track col.key) {
+        <th>
+          <div class="skeleton"></div>
+        </th>
+      }
+      <th><div class="skeleton skeleton-btn"></div></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (i of [].constructor(rows()); track i) {
+      <tr>
+        @for (col of columns(); track col.key) {
+          <td>
+            <div class="skeleton"></div>
+          </td>
+        }
+        <td><div class="skeleton skeleton-btn"></div></td>
+      </tr>
+    }
+  </tbody>
+</table>

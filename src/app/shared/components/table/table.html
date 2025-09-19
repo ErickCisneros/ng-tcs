@@ -1,40 +1,44 @@
 <div class="table-container">
-  <table>
-    <thead>
-      <tr>
-        @for (col of columns(); track col.key) {
-          <th>{{ col.label }}</th>
-        }
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (row of paginatedData(); track $index) {
+  @if (!loading()) {
+    <table>
+      <thead>
         <tr>
           @for (col of columns(); track col.key) {
-            <td>
-              @if (col.key === 'logo') {
-                <img [src]="row[col.key]" alt="Logo" width="auto" height="40" />
-              } @else {
-                {{ row[col.key] }}
-              }
-            </td>
+            <th>{{ col.label }}</th>
           }
-          <td>
-            <div class="actions-menu">
-              <button type="button" (click)="toggleMenu(row)">⋮</button>
-              @if (openRow() === row) {
-                <div class="menu">
-                  <button type="button" (click)="edit.emit(row)">Editar</button>
-                  <button type="button" (click)="remove.emit(row)">Eliminar</button>
-                </div>
-              }
-            </div>
-          </td>
+          <th></th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (row of paginatedData(); track $index) {
+          <tr>
+            @for (col of columns(); track col.key) {
+              <td>
+                @if (col.key === 'logo') {
+                  <img [src]="row[col.key]" alt="Logo" width="auto" height="40" />
+                } @else {
+                  {{ row[col.key] }}
+                }
+              </td>
+            }
+            <td>
+              <div class="actions-menu">
+                <button type="button" (click)="toggleMenu(row)">⋮</button>
+                @if (openRow() === row) {
+                  <div class="menu">
+                    <button type="button" (click)="edit.emit(row)">Editar</button>
+                    <button type="button" (click)="remove.emit(row)">Eliminar</button>
+                  </div>
+                }
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <app-table-skeleton [columns]="columns()" [rows]="pageSize()"></app-table-skeleton>
+  }
 </div>
 
 <div class="table-actions">
