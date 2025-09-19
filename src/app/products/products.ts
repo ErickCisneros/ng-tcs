@@ -33,13 +33,7 @@ export default class Products {
 
   constructor() {
     afterNextRender(() => {
-      this.productsHttp.getAll().subscribe({
-        next: (data) => {
-          this.allProducts.set(data);
-          this.products.set(data);
-        },
-        error: (err) => console.error('Error al obtener productos:', err),
-      });
+      this.loadProducts();
     });
   }
 
@@ -69,8 +63,18 @@ export default class Products {
 
     if (confirm) {
       this.productsHttp.delete(product.id).subscribe({
-        next: () => console.log('Producto eliminado correctamente'),
+        next: () => this.loadProducts(),
       });
     }
+  }
+
+  private loadProducts() {
+    this.productsHttp.getAll().subscribe({
+      next: (data) => {
+        this.allProducts.set(data);
+        this.products.set(data);
+      },
+      error: (err) => console.error('Error al obtener productos:', err),
+    });
   }
 }
