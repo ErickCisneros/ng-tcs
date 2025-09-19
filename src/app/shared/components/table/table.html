@@ -15,7 +15,7 @@
             @for (col of columns(); track col.key) {
               <td>
                 @if (col.key === 'logo') {
-                  <img [src]="row[col.key]" alt="Logo" width="auto" height="40" />
+                  <img [src]="row[col.key]" alt="Logo" width="auto" height="35" />
                 } @else {
                   {{ row[col.key] }}
                 }
