@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ProductMessages } from '../../../core/enums';
 import { ProductModel } from '../../../core/models/product.model';
 import { uniqueIdValidator } from '../../../core/validators/unique-id.validator';
 import { Container } from '../../../shared/layout/container/container';
+import { Dialog } from '../../../shared/services/dialog';
+import { Snackbar } from '../../../shared/services/snackbar';
 import { ProductsHttp } from '../../services/products-http';
 
 @Component({
@@ -17,6 +21,9 @@ export default class Product implements OnInit {
 
   private fb = inject(FormBuilder);
   private productsHttp = inject(ProductsHttp);
+  private dialog = inject(Dialog);
+  private snackbar = inject(Snackbar);
+  private router = inject(Router);
 
   form = this.fb.group({
     id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
@@ -44,11 +51,11 @@ export default class Product implements OnInit {
         this.form.patchValue(product);
         this.form.get('id')?.disable();
       },
-      error: (err) => console.error('Error al cargar producto:', err),
+      error: () => this.snackbar.show(ProductMessages.LOAD_ERROR),
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.form.invalid) return;
 
     const formValue: ProductModel = {
@@ -56,12 +63,29 @@ export default class Product implements OnInit {
     };
 
     if (this.isEdit()) {
-      this.productsHttp.update(formValue.id, formValue).subscribe({
-        next: () => console.log('Producto actualizado'),
+      const confirm = await this.dialog.confirm({
+        title: 'Actualizar producto',
+        message: `¿Deseas actualizar el producto con ID: ${this.productId()}?`,
+        confirmText: 'Actualizar',
+        cancelText: 'Cancelar',
       });
+
+      if (confirm) {
+        this.productsHttp.update(formValue.id, formValue).subscribe({
+          next: () => {
+            this.snackbar.show(ProductMessages.UPDATE);
+            this.router.navigate(['/products']);
+          },
+          error: () => this.snackbar.show(ProductMessages.UPDATE_ERROR),
+        });
+      }
     } else {
       this.productsHttp.create(formValue).subscribe({
-        next: () => console.log('Producto creado'),
+        next: () => {
+          this.snackbar.show(ProductMessages.CREATE);
+          this.router.navigate(['/products']);
+        },
+        error: () => this.snackbar.show(ProductMessages.CREATE_ERROR),
       });
     }
   }

@@ -1,11 +1,13 @@
 import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductMessages } from '../core/enums';
 import { ProductModel } from '../core/models/product.model';
 import { AddButton } from '../shared/components/add-button/add-button';
 import { SearchInput } from '../shared/components/search-input/search-input';
 import { Table } from '../shared/components/table/table';
 import { Container } from '../shared/layout/container/container';
 import { Dialog } from '../shared/services/dialog';
+import { Snackbar } from '../shared/services/snackbar';
 import { TableColumn } from '../shared/types/table-column';
 import { ProductsHttp } from './services/products-http';
 
@@ -20,6 +22,7 @@ export default class Products {
   private router = inject(Router);
   private productsHttp = inject(ProductsHttp);
   private dialog = inject(Dialog);
+  private snackbar = inject(Snackbar);
   private allProducts = signal<ProductModel[]>([]);
 
   products = signal<ProductModel[]>([]);
@@ -63,7 +66,13 @@ export default class Products {
 
     if (confirm) {
       this.productsHttp.delete(product.id).subscribe({
-        next: () => this.loadProducts(),
+        next: () => {
+          this.loadProducts();
+          this.snackbar.show(ProductMessages.DELETE);
+        },
+        error: () => {
+          this.snackbar.show(ProductMessages.DELETE_ERROR);
+        },
       });
     }
   }
@@ -74,7 +83,7 @@ export default class Products {
         this.allProducts.set(data);
         this.products.set(data);
       },
-      error: (err) => console.error('Error al obtener productos:', err),
+      error: () => this.snackbar.show(ProductMessages.LOAD_ERROR),
     });
   }
 }
