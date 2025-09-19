@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { Product } from '../core/models/product';
+import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { ProductModel } from '../core/models/product.model';
 import { AddButton } from '../shared/components/add-button/add-button';
 import { SearchInput } from '../shared/components/search-input/search-input';
 import { Table } from '../shared/components/table/table';
 import { Container } from '../shared/layout/container/container';
+import { Dialog } from '../shared/services/dialog';
 import { TableColumn } from '../shared/types/table-column';
 import { ProductsHttp } from './services/products-http';
 
@@ -15,11 +17,13 @@ import { ProductsHttp } from './services/products-http';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class Products {
+  private router = inject(Router);
   private productsHttp = inject(ProductsHttp);
-  private allProducts = signal<Product[]>([]);
+  private dialog = inject(Dialog);
+  private allProducts = signal<ProductModel[]>([]);
 
-  products = signal<Product[]>([]);
-  columns: TableColumn<Product>[] = [
+  products = signal<ProductModel[]>([]);
+  columns: TableColumn<ProductModel>[] = [
     { key: 'logo', label: 'Logo', type: 'image' },
     { key: 'name', label: 'Nombre' },
     { key: 'description', label: 'Descripción' },
@@ -28,12 +32,14 @@ export default class Products {
   ];
 
   constructor() {
-    this.productsHttp.getAll().subscribe({
-      next: (data) => {
-        this.allProducts.set(data);
-        this.products.set(data);
-      },
-      error: (err) => console.error('Error al obtener productos:', err),
+    afterNextRender(() => {
+      this.productsHttp.getAll().subscribe({
+        next: (data) => {
+          this.allProducts.set(data);
+          this.products.set(data);
+        },
+        error: (err) => console.error('Error al obtener productos:', err),
+      });
     });
   }
 
@@ -47,5 +53,24 @@ export default class Products {
           p.id.toLowerCase().includes(lower),
       ),
     );
+  }
+
+  onEdit(product: ProductModel) {
+    this.router.navigate(['/products', product.id]);
+  }
+
+  async onRemove(product: ProductModel) {
+    const confirm = await this.dialog.confirm({
+      title: 'Eliminar producto',
+      message: `¿Seguro que deseas eliminar ${product.name}?`,
+      confirmText: 'Eliminar',
+      cancelText: 'Cancelar',
+    });
+
+    if (confirm) {
+      this.productsHttp.delete(product.id).subscribe({
+        next: () => console.log('Producto eliminado correctamente'),
+      });
+    }
   }
 }

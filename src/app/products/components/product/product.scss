@@ -1,0 +1,38 @@
+.title {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 1rem;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 2rem 1rem 2rem;
+  gap: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-actions {
+    flex-direction: row;
+  }
+}

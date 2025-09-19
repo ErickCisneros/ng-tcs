@@ -3,5 +3,10 @@
     <app-search-input (searchChange)="onSearch($event)"></app-search-input>
     <app-add-button></app-add-button>
   </ng-container>
-  <app-table [data]="products()" [columns]="columns"></app-table>
+  <app-table
+    [data]="products()"
+    [columns]="columns"
+    (edit)="onEdit($event)"
+    (remove)="onRemove($event)"
+  ></app-table>
 </app-container>

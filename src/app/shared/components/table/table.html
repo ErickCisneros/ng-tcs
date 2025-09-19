@@ -5,6 +5,7 @@
         @for (col of columns(); track col.key) {
           <th>{{ col.label }}</th>
         }
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -13,12 +14,23 @@
           @for (col of columns(); track col.key) {
             <td>
               @if (col.key === 'logo') {
-                <img [src]="row[col.key]" alt="Logo" width="60" height="40" />
+                <img [src]="row[col.key]" alt="Logo" width="auto" height="40" />
               } @else {
                 {{ row[col.key] }}
               }
             </td>
           }
+          <td>
+            <div class="actions-menu">
+              <button type="button" (click)="toggleMenu(row)">⋮</button>
+              @if (openRow() === row) {
+                <div class="menu">
+                  <button type="button" (click)="edit.emit(row)">Editar</button>
+                  <button type="button" (click)="remove.emit(row)">Eliminar</button>
+                </div>
+              }
+            </div>
+          </td>
         </tr>
       }
     </tbody>

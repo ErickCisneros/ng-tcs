@@ -1,6 +1,6 @@
 @use './mixins.scss' as m;
 
-.input-container {
+.search-input {
   position: relative;
   width: 100%;
 
@@ -23,5 +23,28 @@
     &:hover {
       @include m.shadow();
     }
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  input,
+  textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  small {
+    color: red;
+    font-size: 12px;
   }
 }

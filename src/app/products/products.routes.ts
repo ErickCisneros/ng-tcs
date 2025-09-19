@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { productExistsGuard } from '../core/guards/product-exists-guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
   },
   {
     path: ':productId',
+    canActivate: [productExistsGuard],
     loadComponent: () => import('./components/product/product'),
   },
 ];

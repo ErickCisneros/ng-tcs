@@ -21,6 +21,8 @@ export class Table<T> {
   columns = input.required<TableColumn<T>[]>();
   pageSizeOptions = input<number[]>([5, 10, 20]);
 
+  edit = output<T>();
+  remove = output<T>();
   pageChange = output<{ pageSize: number; pageIndex: number }>();
 
   pageSize = signal(5);
@@ -30,6 +32,7 @@ export class Table<T> {
   totalPages = computed(() => Math.max(Math.ceil(this.total() / this.pageSize()), 1));
   canPrev = computed(() => this.pageIndex() > 0);
   canNext = computed(() => this.pageIndex() < this.totalPages() - 1);
+  openRow = signal<T | null>(null);
 
   clamp = effect(() => {
     const pages = this.totalPages();
@@ -62,5 +65,9 @@ export class Table<T> {
       this.pageIndex.update((i) => i - 1);
       this.pageChange.emit({ pageSize: this.pageSize(), pageIndex: this.pageIndex() });
     }
+  }
+
+  toggleMenu(row: T) {
+    this.openRow.set(this.openRow() === row ? null : row);
   }
 }
