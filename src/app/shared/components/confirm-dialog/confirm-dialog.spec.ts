@@ -18,4 +18,16 @@ describe('ConfirmDialog', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit cancelAction when onCancel is called', () => {
+    const spy = jest.spyOn(component.cancelAction, 'emit');
+    component.onCancel();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should emit confirmAction when onConfirm is called', () => {
+    const spy = jest.spyOn(component.confirmAction, 'emit');
+    component.onConfirm();
+    expect(spy).toHaveBeenCalled();
+  });
 });

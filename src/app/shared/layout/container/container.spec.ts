@@ -1,4 +1,6 @@
+import { provideLocationMocks } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Container } from './container';
 
 describe('Container', () => {
@@ -8,6 +10,7 @@ describe('Container', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Container],
+      providers: [provideRouter([]), provideLocationMocks()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Container);
