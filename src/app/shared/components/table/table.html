@@ -21,7 +21,7 @@
                 }
               </td>
             }
-            <td>
+            <td style="max-width: 45px">
               <div class="actions-menu">
                 <button type="button" (click)="toggleMenu(row)">⋮</button>
                 @if (openRow() === row) {
@@ -43,7 +43,9 @@
 
 <div class="table-actions">
   <div class="paginator">
-    <span class="page-info"> Página {{ pageIndex() + 1 }} de {{ totalPages() }} </span>
+    <span>
+      Mostrando {{ currentRange().start }}-{{ currentRange().end }} de {{ total() }} resultados
+    </span>
 
     <select
       id="pageSize"
@@ -55,9 +57,8 @@
         <option [value]="size">{{ size }}</option>
       }
     </select>
-
-    <span>de {{ total() }} resultados</span>
   </div>
+  <span class="page-info"> Página {{ pageIndex() + 1 }} de {{ totalPages() }} </span>
 
   <div class="navigator">
     <button type="button" (click)="prevPage()" [disabled]="!canPrev()">Anterior</button>

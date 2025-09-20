@@ -34,4 +34,8 @@
   @if (fc.hasError('email')) {
     <small>Debe ser un email válido</small>
   }
+
+  @if (fc.hasError('releasePast')) {
+    <small>La fecha de liberación no puede ser menor a hoy</small>
+  }
 }

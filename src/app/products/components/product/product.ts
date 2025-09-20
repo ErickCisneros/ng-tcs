@@ -3,6 +3,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { ProductMessages } from '../../../core/enums';
 import { ProductModel } from '../../../core/models/product.model';
+import { releaseDateValidator } from '../../../core/validators/release-date.validator';
 import { uniqueIdValidator } from '../../../core/validators/unique-id.validator';
 import { InputErrorMessages } from '../../../shared/components/input-error-messages/input-error-messages';
 import { Container } from '../../../shared/layout/container/container';
@@ -31,8 +32,14 @@ export default class Product implements OnInit {
     name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
     description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
     logo: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+$/)]],
-    date_release: ['', [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)]],
-    date_revision: ['', [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)]],
+    date_release: [
+      '',
+      [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/), releaseDateValidator()],
+    ],
+    date_revision: [
+      { value: '', disabled: true },
+      [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)],
+    ],
   });
 
   isEdit = signal(false);
@@ -44,6 +51,8 @@ export default class Product implements OnInit {
     } else {
       this.form.controls.id.addAsyncValidators(uniqueIdValidator(this.productsHttp));
     }
+
+    this.setDates();
   }
 
   private loadProduct(id: string) {
@@ -89,6 +98,20 @@ export default class Product implements OnInit {
         error: () => this.snackbar.show(ProductMessages.CREATE_ERROR),
       });
     }
+  }
+
+  private setDates() {
+    this.form.controls.date_release.valueChanges.subscribe((value) => {
+      if (value) {
+        const release = new Date(value);
+        const revision = new Date(release);
+        revision.setFullYear(release.getFullYear() + 1);
+
+        this.form.controls.date_revision.setValue(revision.toISOString().split('T')[0], {
+          emitEvent: false,
+        });
+      }
+    });
   }
 
   onReset() {

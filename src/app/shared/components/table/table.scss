@@ -1,15 +1,16 @@
 .table-container {
   width: 100%;
   border-radius: 8px;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .table-actions {
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.75rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   gap: 0.5rem;
 
@@ -55,6 +56,11 @@
       background-color: #f0f0f0;
     }
   }
+}
+
+tbody tr:nth-last-child(-n + 2) .actions-menu .menu {
+  top: auto;
+  bottom: 100%;
 }
 
 @media (min-width: 614px) {

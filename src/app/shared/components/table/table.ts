@@ -32,6 +32,11 @@ export class Table<T> {
 
   total = computed(() => this.data().length);
   totalPages = computed(() => Math.max(Math.ceil(this.total() / this.pageSize()), 1));
+  currentRange = computed(() => {
+    const start = this.pageIndex() * this.pageSize() + 1;
+    const end = Math.min((this.pageIndex() + 1) * this.pageSize(), this.total());
+    return { start, end };
+  });
   canPrev = computed(() => this.pageIndex() > 0);
   canNext = computed(() => this.pageIndex() < this.totalPages() - 1);
   openRow = signal<T | null>(null);
