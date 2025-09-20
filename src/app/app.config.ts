@@ -6,8 +6,10 @@ import {
 } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import {
+  PreloadAllModules,
   provideRouter,
   withComponentInputBinding,
+  withPreloading,
   withRouterConfig,
   withViewTransitions,
 } from '@angular/router';
@@ -22,6 +24,7 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withComponentInputBinding(),
       withRouterConfig({ paramsInheritanceStrategy: 'always' }),
+      withPreloading(PreloadAllModules),
     ),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
