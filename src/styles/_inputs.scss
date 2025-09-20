@@ -42,13 +42,8 @@
     border-radius: 6px;
     font-size: 14px;
 
-    &.ng-invalid.ng-touched {
+    &.ng-invalid.ng-dirty {
       @include m.border-color(error);
     }
-  }
-
-  small {
-    color: red;
-    font-size: 12px;
   }
 }
