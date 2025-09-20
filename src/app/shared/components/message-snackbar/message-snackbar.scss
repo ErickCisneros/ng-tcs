@@ -1,8 +1,10 @@
+@use '../../../../styles/mixins' as m;
+
 .snackbar {
+  @include m.bg(primary);
+  @include m.text(surface);
   visibility: hidden;
   min-width: 250px;
-  background-color: #323232;
-  color: #fff;
   text-align: center;
   border-radius: 4px;
   padding: 12px;

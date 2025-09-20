@@ -37,13 +37,13 @@
 
   input,
   textarea {
+    @include m.border(primary);
     padding: 8px;
-    border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 14px;
 
     &.ng-invalid.ng-touched {
-      border-color: red;
+      @include m.border-color(error);
     }
   }
 

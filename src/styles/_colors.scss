@@ -6,6 +6,8 @@ $colors: (
   surface-variant: white,
   on-surface: #ffffff26,
   shadow: #00000033,
+  error: #d63c3c,
+  error-variant: #b71c1c,
 );
 
 @each $name, $color in $colors {

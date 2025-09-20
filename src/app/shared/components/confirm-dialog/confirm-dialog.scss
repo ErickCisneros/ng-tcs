@@ -1,7 +1,9 @@
+@use '../../../../styles/mixins' as m;
+
 .dialog-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  @include m.bg(shadow);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,12 +11,12 @@
 }
 
 .dialog {
-  background: #fff;
+  @include m.bg(surface-variant);
+  @include m.shadow();
   padding: 1.5rem;
   border-radius: 8px;
   max-width: 400px;
   width: 90%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
   h2 {
     margin-top: 0;
@@ -39,21 +41,21 @@
     font-size: 0.9rem;
   }
 
-  .cancel {
-    background-color: #aaa;
-    color: white;
-  }
-
   .confirm {
-    background-color: #d32f2f;
-    color: white;
+    @include m.bg(primary);
+    @include m.text(surface-variant);
+
+    &:hover {
+      @include m.bg(primary-variant);
+    }
   }
 
-  .cancel:hover {
-    background-color: #888;
-  }
+  .cancel {
+    @include m.bg(error-variant);
+    @include m.text(surface-variant);
 
-  .confirm:hover {
-    background-color: #b71c1c;
+    &:hover {
+      @include m.bg(error);
+    }
   }
 }
