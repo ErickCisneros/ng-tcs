@@ -34,8 +34,12 @@ export class Table<T> {
   total = computed(() => this.data().length);
   totalPages = computed(() => Math.max(Math.ceil(this.total() / this.pageSize()), 1));
   currentRange = computed(() => {
+    const total = this.total();
+    if (total === 0) {
+      return { start: 0, end: 0 };
+    }
     const start = this.pageIndex() * this.pageSize() + 1;
-    const end = Math.min((this.pageIndex() + 1) * this.pageSize(), this.total());
+    const end = Math.min(start + this.pageSize() - 1, total);
     return { start, end };
   });
   canPrev = computed(() => this.pageIndex() > 0);
