@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductMessages } from '../../../core/enums';
 import { ProductModel } from '../../../core/models/product.model';
 import { uniqueIdValidator } from '../../../core/validators/unique-id.validator';
+import { InputErrorMessages } from '../../../shared/components/input-error-messages/input-error-messages';
 import { Container } from '../../../shared/layout/container/container';
 import { Dialog } from '../../../shared/services/dialog';
 import { Snackbar } from '../../../shared/services/snackbar';
@@ -11,7 +12,7 @@ import { ProductsHttp } from '../../services/products-http';
 
 @Component({
   selector: 'app-product',
-  imports: [Container, ReactiveFormsModule],
+  imports: [Container, ReactiveFormsModule, InputErrorMessages],
   templateUrl: './product.html',
   styleUrl: './product.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,7 +20,7 @@ import { ProductsHttp } from '../../services/products-http';
 export default class Product implements OnInit {
   readonly productId = input.required<string>();
 
-  private fb = inject(FormBuilder);
+  private fb = inject(NonNullableFormBuilder);
   private productsHttp = inject(ProductsHttp);
   private dialog = inject(Dialog);
   private snackbar = inject(Snackbar);
@@ -29,9 +30,9 @@ export default class Product implements OnInit {
     id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
     name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
     description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-    logo: ['', Validators.required],
-    date_release: ['', Validators.required],
-    date_revision: ['', Validators.required],
+    logo: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+$/)]],
+    date_release: ['', [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)]],
+    date_revision: ['', [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)]],
   });
 
   isEdit = signal(false);

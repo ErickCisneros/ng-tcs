@@ -1,0 +1,37 @@
+@if (fc) {
+  @if (fc.hasError('required') && fc.touched) {
+    <small>El campo es requerido</small>
+  }
+
+  @if (fc.pending) {
+    <small>Verificando...</small>
+  }
+
+  @if (fc.hasError('idExists')) {
+    <small>Este ID ya existe, elige otro</small>
+  }
+
+  @if (fc.hasError('minlength')) {
+    <small>
+      Debe tener al menos
+      {{ fc.getError('minlength').requiredLength }} caracteres (actual:
+      {{ fc.getError('minlength').actualLength }})
+    </small>
+  }
+
+  @if (fc.hasError('maxlength')) {
+    <small>
+      No puede superar los
+      {{ fc.getError('maxlength').requiredLength }} caracteres (actual:
+      {{ fc.getError('maxlength').actualLength }})
+    </small>
+  }
+
+  @if (fc.hasError('pattern')) {
+    <small>El formato no coincide con el solicitado</small>
+  }
+
+  @if (fc.hasError('email')) {
+    <small>Debe ser un email válido</small>
+  }
+}

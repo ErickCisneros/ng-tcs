@@ -6,40 +6,37 @@
       <div class="form-field">
         <label for="id">ID</label>
         <input id="id" type="text" formControlName="id" />
-        @if (form.get('id')?.hasError('required') && form.get('id')?.touched) {
-          <small>ID es requerido</small>
-        }
-        @if (form.get('id')?.pending) {
-          <small>Verificando...</small>
-        }
-        @if (form.get('id')?.hasError('idExists')) {
-          <small> Este ID ya existe, elige otro</small>
-        }
+        <app-input-error-messages [fc]="form.get('id')" />
       </div>
 
       <div class="form-field">
         <label for="name">Nombre</label>
         <input id="name" type="text" formControlName="name" />
+        <app-input-error-messages [fc]="form.get('name')" />
       </div>
 
       <div class="form-field">
         <label for="description">Descripción</label>
         <input id="description" type="text" formControlName="description" />
+        <app-input-error-messages [fc]="form.get('description')" />
       </div>
 
       <div class="form-field">
         <label for="logo">Logo (URL)</label>
         <input id="logo" type="text" formControlName="logo" />
+        <app-input-error-messages [fc]="form.get('logo')" />
       </div>
 
       <div class="form-field">
         <label for="date_release">Fecha de liberación</label>
         <input id="date_release" type="date" formControlName="date_release" />
+        <app-input-error-messages [fc]="form.get('date_release')" />
       </div>
 
       <div class="form-field">
         <label for="date_revision">Fecha de revisión</label>
         <input id="date_revision" type="date" formControlName="date_revision" />
+        <app-input-error-messages [fc]="form.get('date_revision')" />
       </div>
     </div>
 
