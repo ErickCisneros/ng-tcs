@@ -8,11 +8,12 @@ import {
   signal,
 } from '@angular/core';
 import { TableColumn } from '../../types/table-column';
+import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
 import { TableSkeleton } from '../table-skeleton/table-skeleton';
 
 @Component({
   selector: 'app-table',
-  imports: [TableSkeleton],
+  imports: [TableSkeleton, DropdownMenu],
   templateUrl: './table.html',
   styleUrl: './table.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

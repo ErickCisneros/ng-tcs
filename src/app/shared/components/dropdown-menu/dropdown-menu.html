@@ -1,0 +1,9 @@
+<div class="actions-menu" [class.drop-up]="dropUp()">
+  <button type="button" (click)="menuToggle.emit()">⋮</button>
+  @if (isOpen()) {
+    <div class="menu">
+      <button type="button" (click)="edit.emit(row())">Editar</button>
+      <button type="button" (click)="remove.emit(row())">Eliminar</button>
+    </div>
+  }
+</div>
