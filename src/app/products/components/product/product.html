@@ -41,8 +41,8 @@
     </div>
 
     <div class="form-actions">
-      <button type="button" (click)="onReset()">Reiniciar</button>
-      <button type="submit" [disabled]="form.invalid">
+      <button type="button" (click)="onReset()" [disabled]="!canReset">Reiniciar</button>
+      <button type="submit" [disabled]="!validatedForm">
         {{ isEdit() ? 'Actualizar' : 'Agregar' }}
       </button>
     </div>

@@ -42,6 +42,14 @@ export default class Product implements OnInit {
     ],
   });
 
+  get validatedForm() {
+    return this.form.dirty && this.form.valid;
+  }
+
+  get canReset(): boolean {
+    return this.form.dirty || (this.form.value && Object.values(this.form.value).some((v) => v));
+  }
+
   isEdit = signal(false);
 
   ngOnInit(): void {
