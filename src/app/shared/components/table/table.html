@@ -23,12 +23,8 @@
                 </td>
               }
               <td style="max-width: 45px">
-                @let dropUp = i >= paginatedData().length - 2;
                 <app-dropdown-menu
                   [row]="row"
-                  [isOpen]="openRow() === row"
-                  [dropUp]="dropUp"
-                  (menuToggle)="toggleMenu(row)"
                   (edit)="edit.emit(row)"
                   (remove)="remove.emit(row)"
                 ></app-dropdown-menu>

@@ -1,9 +1,10 @@
-<div class="actions-menu" [class.drop-up]="dropUp()">
-  <button type="button" (click)="menuToggle.emit()">⋮</button>
-  @if (isOpen()) {
-    <div class="menu">
-      <button type="button" (click)="edit.emit(row())">Editar</button>
-      <button type="button" (click)="remove.emit(row())">Eliminar</button>
-    </div>
-  }
+<div class="actions-menu">
+  <button type="button" [cdkMenuTriggerFor]="menu">⋮</button>
 </div>
+
+<ng-template #menu>
+  <div class="menu" cdkMenu>
+    <button type="button" cdkMenuItem (click)="edit.emit(row())">Editar</button>
+    <button type="button" cdkMenuItem (click)="remove.emit(row())">Eliminar</button>
+  </div>
+</ng-template>

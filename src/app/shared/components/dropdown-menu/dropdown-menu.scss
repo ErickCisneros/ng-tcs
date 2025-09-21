@@ -1,36 +1,32 @@
 @use '../../../../styles/mixins' as m;
 
 .actions-menu {
-  position: relative;
+  display: inline-block;
 
-  .menu {
+  button {
+    line-height: 1;
+    font-size: 1.2rem;
+    padding: 0.25rem;
+  }
+}
+
+.menu {
+  @include m.bg(surface-variant);
+  @include m.border(surface);
+  @include m.shadow();
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  min-width: 120px;
+  gap: 0.125rem 0rem;
+
+  button[cdkMenuItem] {
+    @include m.text(on-surface-variant);
     @include m.bg(surface-variant);
-    @include m.border(surface);
-    position: absolute;
-    top: 100%;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    border-radius: 6px;
-    min-width: 120px;
-    z-index: 10;
+    padding: 0.5rem 0.75rem;
 
-    button {
-      padding: 8px;
-      border: none;
-      background: transparent;
-      text-align: left;
-      cursor: pointer;
-      @include m.text(on-surface-variant);
-    }
-
-    button:hover {
+    &:hover {
       @include m.bg(primary-container);
     }
-  }
-
-  &.drop-up .menu {
-    top: auto;
-    bottom: 100%;
   }
 }

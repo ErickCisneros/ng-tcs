@@ -108,14 +108,4 @@ describe('Table', () => {
 
     expect(component.pageIndex()).toBe(component.totalPages() - 1);
   });
-
-  it('should toggle menu correctly', () => {
-    const row = mockData[0];
-
-    component.toggleMenu(row);
-    expect(component.openRow()).toBe(row);
-
-    component.toggleMenu(row);
-    expect(component.openRow()).toBeNull();
-  });
 });
